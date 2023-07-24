@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     async function openCustomFrontendModal() {
-      const identifier = "my_custom_ui_identifier"; // Manually set the identifier
+      const identifier = "e0efc54cf0854a3e"; // Manually set the identifier
       const customUISize = { height: 500 }; // Manually set the custom UI size
 
       const sdk = await new AppExtensionsSDK({ identifier }).initialize({
