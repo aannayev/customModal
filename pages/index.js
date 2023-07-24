@@ -1,36 +1,39 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
+
 import styles from "../styles/Home.module.css";
-import AppExtensionsSDK from "@pipedrive/app-extensions-sdk";
+import { init } from "@pipedrive/app-extensions-sdk";
 import { useEffect } from "react";
 export default function Home() {
-  const router = useRouter();
   useEffect(() => {
     async function openCustomFrontendModal() {
-      const identifier = "e0efc54cf0854a3e"; // Manually set the identifier
-      const customUISize = { height: 500 }; // Manually set the custom UI size
+      const urlParams = new URLSearchParams(window.location.search);
+      const identifier = urlParams.get("id"); // Assuming the identifier is passed as 'id' in the URL query
 
-      const sdk = await new AppExtensionsSDK({ identifier }).initialize({
-        size: customUISize,
-      });
+      if (!identifier) {
+        console.error("Identifier not found in URL query parameters.");
+        return;
+      }
 
-      // Now you can use the `sdk` object to interact with Pipedrive and display your custom UI
-      // For example:
-      sdk.modal.setTitle("Custom Frontend");
-      sdk.modal.setContent(
-        '<iframe src="/custom_frontend" frameborder="0" style="width: 100%; height: 100%;"></iframe>'
+      const { modal } = await init();
+
+      modal.setTitle("Custom Frontend");
+      modal.setContent(
+        `<iframe src="/custom_frontend?id=${encodeURIComponent(
+          identifier
+        )}" frameborder="0" style="width: 100%; height: 100%;"></iframe>`
       );
-      sdk.modal.setWidth("90%");
-      sdk.modal.setHeight("90%");
-      sdk.modal.setIsFullWidth(true);
-      sdk.modal.setIsFullHeight(true);
-      sdk.modal.setIsHiddenOnClose(false);
-      sdk.modal.open();
+      modal.setWidth("90%");
+      modal.setHeight("90%");
+      modal.setIsFullWidth(true);
+      modal.setIsFullHeight(true);
+      modal.setIsHiddenOnClose(false);
+
+      modal.open();
     }
 
     openCustomFrontendModal();
-  }, [router]);
+  }, []);
 
   return (
     <div className={styles.container}>
