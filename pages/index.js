@@ -17,14 +17,16 @@ export default function Home() {
 
       // Now you can use the `sdk` object to interact with Pipedrive and display your custom UI
       // For example:
-      // sdk.modal.setTitle('Custom Frontend');
-      // sdk.modal.setContent('<iframe src="/custom_frontend" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
-      // sdk.modal.setWidth('90%');
-      // sdk.modal.setHeight('90%');
-      // sdk.modal.setIsFullWidth(true);
-      // sdk.modal.setIsFullHeight(true);
-      // sdk.modal.setIsHiddenOnClose(false);
-      // sdk.modal.open();
+      sdk.modal.setTitle("Custom Frontend");
+      sdk.modal.setContent(
+        '<iframe src="/custom_frontend" frameborder="0" style="width: 100%; height: 100%;"></iframe>'
+      );
+      sdk.modal.setWidth("90%");
+      sdk.modal.setHeight("90%");
+      sdk.modal.setIsFullWidth(true);
+      sdk.modal.setIsFullHeight(true);
+      sdk.modal.setIsHiddenOnClose(false);
+      sdk.modal.open();
     }
 
     openCustomFrontendModal();
