@@ -10,29 +10,30 @@ const CustomComponent = () => {
         const queryParams = new URLSearchParams(window.location.search);
         const identifier = queryParams.get("id");
 
-        if (!identifier) {
-          console.error("Identifier not found in URL query parameters.");
-          return;
+        if (identifier) {
+          // Use the identifier from the URL query parameters
+          console.log("Identifier from URL:", identifier);
+          const sdk = await new AppExtensionsSDK().initialize();
+          // Use the SDK object to interact with Pipedrive, if needed
+          // For example, open a modal with the default custom UI size
+          const { modal } = sdk;
+          modal.setTitle("Custom Modal");
+          modal.setContent("<p>This is the content of the custom modal.</p>");
+          modal.open();
+        } else {
+          // Use the identifier '123abc' and provide a custom UI size
+          const sdk = await new AppExtensionsSDK({
+            identifier: "123abc",
+          }).initialize({
+            size: { height: 500 }, // Replace this with your desired custom UI size
+          });
+          // Use the SDK object to interact with Pipedrive, if needed
+          // For example, open a modal with the specified custom UI size
+          const { modal } = sdk;
+          modal.setTitle("Custom Modal");
+          modal.setContent("<p>This is the content of the custom modal.</p>");
+          modal.open();
         }
-
-        // Use the identifier as needed
-        console.log("Identifier:", identifier);
-
-        // Optionally, you can set custom UI size if needed
-        const sdk = await new AppExtensionsSDK({
-          identifier: identifier,
-        }).initialize({
-          size: { height: 500 }, // Replace this with your desired custom UI size
-        });
-
-        // Use the sdk object to interact with Pipedrive, for example, opening a modal
-        const { modal } = sdk;
-        modal.setTitle("Custom Modal");
-        modal.setContent("<p>This is the content of the custom modal.</p>");
-        modal.setWidth("500px");
-        modal.setHeight("300px");
-        modal.setIsHiddenOnClose(true);
-        modal.open();
       } catch (error) {
         console.error("Error initializing the Pipedrive SDK:", error);
       }
