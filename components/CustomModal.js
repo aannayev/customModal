@@ -23,7 +23,7 @@ const CustomComponent = () => {
         } else {
           // Use the identifier '123abc' and provide a custom UI size
           const sdk = await new AppExtensionsSDK({
-            identifier: "123abc",
+            identifier: "f58eadf6-d017-44b9-b9a4-d1fbd247ddf1",
           }).initialize({
             size: { height: 500 }, // Replace this with your desired custom UI size
           });
